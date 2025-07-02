@@ -1,4 +1,6 @@
-# Mangamarket
+# MangaMori
+
+MangaMori is a fullstack e-commerce platform for discovering and purchasing manga and comic books. Built using a scalable Nx monorepo architecture, the platform consists of an Angular frontend and a NestJS backend, fully integrated with Prisma ORM and Stripe for seamless database and payment management.
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
@@ -60,7 +62,7 @@ npx nx sync:check
 
 [Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
 
-## Set up CI!
+## Set up CI
 
 ### Step 1
 
@@ -103,6 +105,7 @@ Learn more:
 - [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
 And join the Nx community:
+
 - [Discord](https://go.nx.dev/community)
 - [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
