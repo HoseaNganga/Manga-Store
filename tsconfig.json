@@ -8,6 +8,9 @@
     },
     {
       "path": "./apps/manga-market-be"
+    },
+    {
+      "path": "./apps/manga-market-web-e2e"
     }
   ]
 }
