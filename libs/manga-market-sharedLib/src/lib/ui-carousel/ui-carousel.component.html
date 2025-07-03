@@ -1,0 +1,28 @@
+<p-carousel
+  [value]="items"
+  [numVisible]="numVisible"
+  [numScroll]="numScroll"
+  [responsiveOptions]="responsiveOptions || defaultResponsive"
+  [circular]="true"
+  [autoplayInterval]="templateType === 'hero' ? 4000 : 0"
+  [showNavigators]="templateType !== 'hero'"
+>
+  <ng-template pTemplate="item" let-item>
+    <div *ngIf="templateType === 'hero'" class="hero-slide">
+      <img
+        [src]="item"
+        alt="Hero Image"
+        class="w-full h-96 top-center object-cover rounded-lg"
+      />
+    </div>
+
+    <div
+      *ngIf="templateType === 'product'"
+      class="p-3 border rounded shadow-md text-center"
+    >
+      <img [src]="item.image" [alt]="item.name" class="w-full mb-2 rounded" />
+      <div class="font-bold">{{ item.name }}</div>
+      <div class="text-sm text-gray-600">${{ item.price }}</div>
+    </div>
+  </ng-template>
+</p-carousel>

@@ -13,11 +13,19 @@
     "declaration": false,
     "moduleResolution": "bundler",
     "module": "esnext",
-    "lib": ["es2022", "dom"]
+    "lib": ["es2022", "dom"],
+    "paths": {
+      "@mangamarket/manga-market-sharedLib": [
+        "libs/manga-market-sharedLib/src/index.ts"
+      ]
+    }
   },
   "files": [],
   "include": [],
   "references": [
+    {
+      "path": "../../libs/manga-market-sharedLib"
+    },
     {
       "path": "./tsconfig.editor.json"
     },

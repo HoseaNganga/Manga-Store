@@ -1,1 +1,1 @@
-export * from './lib/manga-market-sharedLib/manga-market-sharedLib.component';
+export * from './lib/ui-carousel/ui-carousel.component';

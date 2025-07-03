@@ -1,1 +1,15 @@
-<p>hero works!</p>
+<div class="h-[400px] mt-1">
+  <lib-ui-carousel
+    [items]="[
+      '/assets/images/hero_1.webp',
+      '/assets/images/hero_2.webp',
+      '/assets/images/hero_3.webp'
+    ]"
+    [numVisible]="1"
+    [numScroll]="1"
+    templateType="hero"
+    [responsiveOptions]="[
+      { breakpoint: '9999px', numVisible: 1, numScroll: 1 }
+    ]"
+  />
+</div>
