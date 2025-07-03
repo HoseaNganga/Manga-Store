@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { PrismaService } from '../prisma/prisma.service';
@@ -25,16 +25,16 @@ export class ProductsService {
     });
   }
 
-  async searchProducts(term:string):Promise<Product[]>{
-    const lowercaseTerm=term.toLowerCase();
+  async searchProducts(term: string): Promise<Product[]> {
+    const lowercaseTerm = term.toLowerCase();
     return this.prisma.product.findMany({
-      where:{
-        OR:[
-          {title:{contains:lowercaseTerm,mode:'insensitive'}},
-          {author:{contains:lowercaseTerm,mode:'insensitive'}}
-        ]
-      }
-    })
+      where: {
+        OR: [
+          { title: { contains: lowercaseTerm, mode: 'insensitive' } },
+          { author: { contains: lowercaseTerm, mode: 'insensitive' } },
+        ],
+      },
+    });
   }
 
   update(id: number, updateProductInput: UpdateProductInput) {

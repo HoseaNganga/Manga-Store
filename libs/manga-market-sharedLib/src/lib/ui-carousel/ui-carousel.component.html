@@ -8,12 +8,18 @@
   [showNavigators]="templateType !== 'hero'"
 >
   <ng-template pTemplate="item" let-item>
-    <div *ngIf="templateType === 'hero'" class="hero-slide">
+    <div *ngIf="templateType === 'hero'" class="hero-slide relative">
       <img
         [src]="item"
         alt="Hero Image"
         class="w-full h-96 top-center object-cover rounded-lg"
       />
+      <p-button
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold"
+      >
+        Shop Now
+      </p-button>
+      >
     </div>
 
     <div

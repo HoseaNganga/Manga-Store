@@ -28,6 +28,7 @@
           }
         ],
         "styles": [
+          "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
           "@angular/material/prebuilt-themes/azure-blue.css",
           "apps/manga-market-web/src/styles.scss"
         ],

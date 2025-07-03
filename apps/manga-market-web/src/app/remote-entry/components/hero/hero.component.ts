@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UiCarouselComponent } from '@mangamarket/manga-market-sharedLib';
+import { HeroStore } from '../../../stores/hero.store';
 
 @Component({
   selector: 'app-hero',
@@ -8,4 +9,14 @@ import { UiCarouselComponent } from '@mangamarket/manga-market-sharedLib';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
-export class HeroComponent {}
+export class HeroComponent implements OnInit {
+  readonly heroStore = inject(HeroStore);
+
+  ngOnInit(): void {
+    this.heroStore.loadHeros();
+  }
+
+  readonly carouselUrls = computed(() =>
+    this.heroStore.heros().map((hero) => hero.url)
+  );
+}
