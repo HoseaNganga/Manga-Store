@@ -20,15 +20,18 @@
           {
             "glob": "**/*",
             "input": "apps/manga-market-web/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/manga-market-web/src/assets",
+            "output": "assets"
           }
         ],
-        "styles": ["apps/manga-market-web/src/styles.scss"],
-        "scripts": [],
-        "server": "apps/manga-market-web/src/main.server.ts",
-        "ssr": {
-          "entry": "apps/manga-market-web/src/server.ts"
-        },
-        "outputMode": "server"
+        "styles": [
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "apps/manga-market-web/src/styles.scss"
+        ],
+        "scripts": []
       },
       "configurations": {
         "production": {

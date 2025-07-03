@@ -1,0 +1,22 @@
+{
+  "name": "@mangamarket/manga-market-be-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": [
+    "@mangamarket/manga-market-be"
+  ],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{projectRoot}/test-output/jest/coverage"
+      ],
+      "options": {
+        "jestConfig": "apps/manga-market-be-e2e/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "dependsOn": [
+        "@mangamarket/manga-market-be:build"
+      ]
+    }
+  }
+}

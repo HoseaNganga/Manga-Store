@@ -2,9 +2,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["node"]
+    "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "@mangamarket/shared-lib": ["libs/manga-market-sharedLib/src/index.ts"]
+    }
   },
-  "files": ["src/main.ts", "src/main.server.ts", "src/server.ts"],
+  "files": ["src/main.ts"],
   "include": ["src/**/*.d.ts"],
   "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }
