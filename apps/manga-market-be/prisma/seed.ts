@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { productsList } from './productsList';
+import { heroUrls } from './heroList';
 
 const prisma = new PrismaClient();
 
@@ -43,9 +44,28 @@ async function main() {
       console.log(`Skipping existing product: ${productData.title}`);
     }
   }
+  console.log('Product seeding finished.');
+  console.log('Seeding hero URLs...');
 
-  console.log('Seeding finished.');
+  for (const url of heroUrls) {
+    const existingHeroUrl = await prisma.heroUrl.findUnique({
+      where: { url: url },
+    });
+
+    if (!existingHeroUrl) {
+      await prisma.heroUrl.create({
+        data: {
+          url: url,
+        },
+      });
+      console.log(`Created hero URL: ${url}`);
+    } else {
+      console.log(`Skipping existing hero URL: ${url}`);
+    }
+  }
+  console.log('Hero URL seeding finished.');
 }
+console.log('Seeding finished.');
 
 main()
   .catch((e) => {

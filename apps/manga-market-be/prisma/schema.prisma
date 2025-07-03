@@ -74,3 +74,9 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
 }
+
+//Schema for heroUrls
+model heroUrl {
+  id  String @id @default(uuid())
+  url String @unique
+}

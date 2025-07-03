@@ -1,10 +1,7 @@
-<div class="h-[400px] mt-1">
+@if (!heroStore.loading() && carouselUrls().length > 0) {
+<div class="h-[400px] mt-.8">
   <lib-ui-carousel
-    [items]="[
-      '/assets/images/hero_1.webp',
-      '/assets/images/hero_2.webp',
-      '/assets/images/hero_3.webp'
-    ]"
+    [items]="carouselUrls()"
     [numVisible]="1"
     [numScroll]="1"
     templateType="hero"
@@ -13,3 +10,4 @@
     ]"
   />
 </div>
+}
