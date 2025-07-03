@@ -1,36 +1,18 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "composite": false,
-    "emitDeclarationOnly": false,
-    "declaration": false,
-    "moduleResolution": "bundler",
-    "module": "esnext",
-    "lib": ["es2022", "dom"],
-    "paths": {
-      "@mangamarket/manga-market-sharedLib": [
-        "libs/manga-market-sharedLib/src/index.ts"
-      ]
-    }
+    "noFallthroughCasesInSwitch": true
   },
   "files": [],
   "include": [],
   "references": [
     {
-      "path": "../../libs/manga-market-sharedLib"
-    },
-    {
-      "path": "./tsconfig.editor.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
+      "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"
