@@ -1,9 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { PrismaService } from '../prisma/prisma.service';
-import { title } from 'process';
-import { Product } from '@prisma/client';
+import { Product as PrismaProduct, Genre as PrismaGenre } from '@prisma/client';
+
+type ProductWithGenres = PrismaProduct & { genres: PrismaGenre[] };
 
 @Injectable()
 export class ProductsService {
@@ -13,19 +14,26 @@ export class ProductsService {
     return 'This action adds a new product';
   }
 
-  findAll() {
-    return this.prisma.product.findMany();
-  }
-
-  findOne(id: string) {
-    return this.prisma.product.findFirst({
-      where: {
-        id,
+  async findAll(): Promise<ProductWithGenres[]> {
+    return this.prisma.product.findMany({
+      include: {
+        genres: true,
       },
     });
   }
 
-  async searchProducts(term: string): Promise<Product[]> {
+  async findOne(id: string): Promise<ProductWithGenres | null> {
+    return this.prisma.product.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        genres: true,
+      },
+    });
+  }
+
+  async searchProducts(term: string): Promise<ProductWithGenres[]> {
     const lowercaseTerm = term.toLowerCase();
     return this.prisma.product.findMany({
       where: {
@@ -33,6 +41,9 @@ export class ProductsService {
           { title: { contains: lowercaseTerm, mode: 'insensitive' } },
           { author: { contains: lowercaseTerm, mode: 'insensitive' } },
         ],
+      },
+      include: {
+        genres: true,
       },
     });
   }

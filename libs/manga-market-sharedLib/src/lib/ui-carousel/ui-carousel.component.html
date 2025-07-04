@@ -5,14 +5,15 @@
   [responsiveOptions]="responsiveOptions || defaultResponsive"
   [circular]="true"
   [autoplayInterval]="templateType === 'hero' ? 4000 : 0"
-  [showNavigators]="templateType !== 'hero'"
+  [showNavigators]="templateType !== 'hero' && templateType !== 'category'"
 >
+  >
   <ng-template pTemplate="item" let-item>
     <div *ngIf="templateType === 'hero'" class="hero-slide relative">
       <img
         [src]="item"
-        alt="Hero Image"
-        class="w-full h-96 top-center object-cover rounded-lg"
+        alt="HeroLogo"
+        class="w-full h-[400px] top-center object-cover rounded-lg"
       />
       <p-button
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold"
@@ -29,6 +30,14 @@
       <img [src]="item.image" [alt]="item.name" class="w-full mb-2 rounded" />
       <div class="font-bold">{{ item.name }}</div>
       <div class="text-sm text-gray-600">${{ item.price }}</div>
+    </div>
+    <div
+      *ngIf="templateType === 'category'"
+      class="category-item w-[120px] h-[120px] bg-gray-900 text-[#a3ffd4] flex items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:scale-1 hover:shadow-xl hover:border hover:border-[#a3ffd4] mx-auto"
+    >
+      <div class="text-xl font-semibold text-center px-4">
+        {{ item.name }}
+      </div>
     </div>
   </ng-template>
 </p-carousel>

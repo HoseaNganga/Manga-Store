@@ -1,4 +1,4 @@
-import { heroUrl, Product } from '@prisma/client';
+import { Genre, heroUrl, Product } from '@prisma/client';
 import { gql } from 'apollo-angular';
 
 export interface ProductState {
@@ -14,13 +14,22 @@ export interface HeroState {
   error: string | null;
 }
 
+export interface genreState {
+  genres: Genre[];
+  loading: boolean;
+  error: string | null;
+}
+
 export const GET_PRODUCTS = gql`
   query GetProducts {
     products {
       id
       title
       author
-      genre
+      genres {
+        id
+        name
+      }
       description
       price
       stock
@@ -41,6 +50,15 @@ export const GET_HEROURLS = gql`
     heros {
       id
       url
+    }
+  }
+`;
+
+export const GET_GENRES = gql`
+  query GetGenres {
+    genres {
+      id
+      name
     }
   }
 `;

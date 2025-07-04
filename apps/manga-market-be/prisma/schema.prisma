@@ -20,7 +20,7 @@ model Product {
   id            String      @id @default(uuid())
   title         String
   author        String
-  genre         String[]
+  genres        Genre[]
   description   String
   price         Float
   stock         Int
@@ -30,7 +30,7 @@ model Product {
   featured      Boolean     @default(false)
   images        String[]
   orderItems    OrderItem[]
-  stripePriceId String
+  stripePriceId String      @unique
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }
@@ -65,6 +65,12 @@ model ShippingAddress {
   city     String
   zip      String
   country  String
+}
+
+model Genre {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  products Product[]
 }
 
 enum OrderStatus {
