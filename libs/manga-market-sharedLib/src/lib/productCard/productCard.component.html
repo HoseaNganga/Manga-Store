@@ -1,0 +1,61 @@
+<p-card
+  [styleClass]="
+    'product-card cursor-pointer relative transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-green-500 w-[200px] h-[280px]  sm:w-[280px]   sm:h-[420px] '
+  "
+>
+  <ng-template pTemplate="header">
+    <div class="relative overflow-hidden w-full h-[120px] sm:h-[250px] mt-4">
+      <img
+        [src]="product.coverUrl"
+        [alt]="product.title"
+        class="w-full h-full object-cover bottom-center"
+      />
+      <p-badge
+        [value]="stockInfo().label"
+        [severity]="stockInfo().severity"
+        [ngClass]="stockInfo().class"
+        class="absolute top-2 right-2 text-xs"
+      ></p-badge>
+    </div>
+  </ng-template>
+
+  <div class="p-card-content flex flex-col justify-between h-full">
+    <div class="flex items-center justify-between mt-2 mb-2">
+      <div class="font-bold sm:text-lg text-[12px]">
+        {{ product.title | titlecase }}
+      </div>
+      <i
+        class="pi pi-heart text-gray-500 cursor-pointer ml-2 hover:text-red-500 transition-colors"
+        (click)="toggleWishlist(product)"
+        tabindex=""
+        (keypress)="toggleWishlist(product)"
+      ></i>
+    </div>
+    <div class="flex justify-between items-center">
+      <div class="mb-2">
+        <p-rating
+          [ngModel]="product.rating || 0"
+          [readonly]="true"
+          [stars]="5"
+          style="color: yellow"
+        ></p-rating>
+      </div>
+
+      <div class="sm:text-lg text-[12px] font-semibold text-green-600 mb-4">
+        ${{ product.price | number : '1.2-2' }}
+      </div>
+    </div>
+
+    <div class="add-to-cart-container transition-opacity duration-300">
+      <p-button
+        label="Add to Cart"
+        icon="pi pi-shopping-cart"
+        severity="success"
+        [disabled]="product.stock === 0"
+        (click)="addToCart(product)"
+        class="w-full"
+        size="small"
+      ></p-button>
+    </div>
+  </div>
+</p-card>

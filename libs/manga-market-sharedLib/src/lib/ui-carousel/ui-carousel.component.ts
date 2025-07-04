@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { ProductCardComponent } from '../productCard/productCard.component';
 
 @Component({
   selector: 'lib-ui-carousel',
-  imports: [CommonModule, CarouselModule, ButtonModule, TagModule],
+  imports: [CommonModule, CarouselModule, ButtonModule, TagModule,ProductCardComponent],
   templateUrl: './ui-carousel.component.html',
   styleUrl: './ui-carousel.component.scss',
 })

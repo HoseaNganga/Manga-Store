@@ -5,7 +5,8 @@
   [responsiveOptions]="responsiveOptions || defaultResponsive"
   [circular]="true"
   [autoplayInterval]="templateType === 'hero' ? 4000 : 0"
-  [showNavigators]="templateType !== 'hero' && templateType !== 'category'"
+  [showNavigators]="templateType !== 'hero'"
+  [showIndicators]="templateType === 'hero'"
 >
   >
   <ng-template pTemplate="item" let-item>
@@ -23,19 +24,16 @@
       >
     </div>
 
-    <div
-      *ngIf="templateType === 'product'"
-      class="p-3 border rounded shadow-md text-center"
-    >
-      <img [src]="item.image" [alt]="item.name" class="w-full mb-2 rounded" />
-      <div class="font-bold">{{ item.name }}</div>
-      <div class="text-sm text-gray-600">${{ item.price }}</div>
+    <div *ngIf="templateType === 'product'" class="p-3 text-center mx-auto">
+      <lib-product-card [product]="item"></lib-product-card>
     </div>
     <div
       *ngIf="templateType === 'category'"
-      class="category-item w-[120px] h-[120px] bg-gray-900 text-[#a3ffd4] flex items-center justify-center gap-2 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:scale-1 hover:shadow-xl hover:border hover:border-[#a3ffd4] mx-auto"
+      class="category-item w-[120px] h-[120px] bg-gray-900 text-[#a3ffd4] flex items-center justify-center rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:scale-1 hover:shadow-xl hover:border hover:border-[#a3ffd4] sm:mx-2 mx-1"
     >
-      <div class="text-xl font-semibold text-center px-4">
+      <div
+        class="md:text-base text-[12px] font-semibold text-center sm:px-4 p-0"
+      >
         {{ item.name }}
       </div>
     </div>
