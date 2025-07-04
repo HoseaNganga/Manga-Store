@@ -1,32 +1,32 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { GET_HEROURLS, HeroState } from './models/stores.model';
+import { genreState, GET_GENRES } from './models/stores.model';
 import { inject } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { heroUrl } from '@prisma/client';
+import { Genre } from '@prisma/client';
 import { tap } from 'rxjs';
 
-const initialState: HeroState = {
-  heros: [],
+const initialState: genreState = {
+  genres: [],
   loading: false,
   error: null,
 };
 
-export const HeroStore = signalStore(
+export const GenreStore = signalStore(
   {
     providedIn: 'root',
   },
   withState(initialState),
   withMethods((store, apollo = inject(Apollo)) => ({
-    loadHeros() {
+    loadGenres() {
       patchState(store, { loading: true });
       apollo
-        .watchQuery<{ heros: heroUrl[] }>({
-          query: GET_HEROURLS,
+        .watchQuery<{ genres: Genre[] }>({
+          query: GET_GENRES,
         })
         .valueChanges.pipe(
           tap({
             next: ({ data }) =>
-              patchState(store, { heros: data.heros, loading: false }),
+              patchState(store, { genres: data.genres, loading: false }),
             error: (error) =>
               patchState(store, { error: error.message, loading: false }),
           })

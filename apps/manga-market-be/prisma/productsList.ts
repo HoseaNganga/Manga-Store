@@ -77,7 +77,7 @@ export const productsList = [
   {
     title: 'blue lock',
     author: 'muneyuki kaneshiro',
-    genre: ['soccer', 'Seinen'],
+    genre: ['Soccer', 'Seinen'],
     description:
       'Unable to best Michael Kaiser during training, Isagi was relegated to the bench for Bastard München’s first match against FC Barcha. Despite his frustration, Isagi resolves to analyze every second of the match so he can draw level with the evolved Bachira and Kunigami. But wait... Noel Noa’s coming onto the field?! What follows is a truly epic clash of soccer gods and monsters—one that might even bring Isagi off the bench...',
     price: 33.99,

@@ -5,6 +5,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { filter } from 'rxjs';
 import { NavigationEnd, RouterModule, Router } from '@angular/router';
 import { HeroStore } from '../../../../stores/hero.store';
+import { GenreStore } from '../../../../stores/genre.store';
 
 @Component({
   selector: 'app-layout',
@@ -25,11 +26,11 @@ export class LayoutComponent {
   private readonly _ngxSpinnerService = inject(NgxSpinnerService);
   private readonly _routerService = inject(Router);
   private readonly heroStore = inject(HeroStore);
+  private readonly genreStore = inject(GenreStore);
 
   constructor() {
-    // This effect ensures the GLOBAL spinner reacts to HeroStore's loading state
     effect(() => {
-      if (this.heroStore.loading()) {
+      if (this.heroStore.loading() || this.genreStore.loading()) {
         this._ngxSpinnerService.show();
       } else {
         this._ngxSpinnerService.hide();

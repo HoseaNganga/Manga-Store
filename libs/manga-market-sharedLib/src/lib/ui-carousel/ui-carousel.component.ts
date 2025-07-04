@@ -14,7 +14,7 @@ export class UiCarouselComponent {
   @Input() items: any[] = [];
   @Input() numVisible = 1;
   @Input() numScroll = 1;
-  @Input() templateType: 'hero' | 'product' = 'hero';
+  @Input() templateType: 'hero' | 'product' | 'category' = 'hero';
   @Input() responsiveOptions: any[] | null = null;
 
   defaultResponsive: any[] = [
