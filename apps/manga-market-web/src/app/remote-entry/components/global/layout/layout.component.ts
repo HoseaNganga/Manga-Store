@@ -6,6 +6,7 @@ import { filter } from 'rxjs';
 import { NavigationEnd, RouterModule, Router } from '@angular/router';
 import { HeroStore } from '../../../../stores/hero.store';
 import { GenreStore } from '../../../../stores/genre.store';
+import { ProductStore } from '../../../../stores/product.store';
 
 @Component({
   selector: 'app-layout',
@@ -27,10 +28,15 @@ export class LayoutComponent {
   private readonly _routerService = inject(Router);
   private readonly heroStore = inject(HeroStore);
   private readonly genreStore = inject(GenreStore);
+  private readonly productStore = inject(ProductStore);
 
   constructor() {
     effect(() => {
-      if (this.heroStore.loading() || this.genreStore.loading()) {
+      if (
+        this.heroStore.loading() ||
+        this.genreStore.loading() ||
+        this.productStore.loading()
+      ) {
         this._ngxSpinnerService.show();
       } else {
         this._ngxSpinnerService.hide();

@@ -1,14 +1,14 @@
 html {
   font-family: 'Zen Kaku Gothic New', sans-serif;
   background: linear-gradient(to bottom right, #0e1316, #122e38, #08170d);
-  min-height: 200vh;
+  min-height: 100vh !important;
   position: relative;
   overflow-x: hidden;
 }
 
 html::before {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-image: radial-gradient(#a3ffd4 1.2px, transparent 2px),
     radial-gradient(#a3ffd4 1.2px, transparent 2px);

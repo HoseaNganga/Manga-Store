@@ -1,0 +1,65 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.product-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .p-card-header {
+    flex-shrink: 0;
+  }
+
+  .p-card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .add-to-cart-container {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &:hover {
+    .add-to-cart-container {
+      opacity: 1;
+    }
+  }
+
+  .badge-instock {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  .badge-outstock {
+    background-color: #f44336;
+    color: white;
+    text-decoration: line-through;
+  }
+
+  ::ng-deep .p-card {
+    overflow: hidden;
+  }
+
+  ::ng-deep .p-card .p-card-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  ::ng-deep .product-card .p-card-header img {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  ::ng-deep .p-carousel-item {
+    padding: 0 !important;
+  }
+  ::ng-deep .p-rating {
+    background-color: yellow;
+  }
+}
