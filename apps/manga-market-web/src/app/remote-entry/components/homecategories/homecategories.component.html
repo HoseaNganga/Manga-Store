@@ -1,0 +1,17 @@
+<div class="mt-[80px]">
+  <h2 class="text-center mb-[40px] text-xl font-bold text-green-600">
+    Categories
+  </h2>
+  <lib-ui-carousel
+    [items]="myCategories()"
+    [templateType]="'category'"
+    [numVisible]="5"
+    [numScroll]="1"
+    [responsiveOptions]="[
+      { breakpoint: '1200px', numVisible: 4, numScroll: 1 },
+      { breakpoint: '992px', numVisible: 3, numScroll: 1 },
+      { breakpoint: '768px', numVisible: 3, numScroll: 1 },
+      { breakpoint: '576px', numVisible: 2, numScroll: 1 }
+    ]"
+  />
+</div>

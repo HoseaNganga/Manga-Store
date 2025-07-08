@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["node"],
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
@@ -17,6 +16,11 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["development"]
+    "baseUrl": ".",
+    "paths": {
+      "@mangamarket/manga-market-sharedLib": [
+        "libs/manga-market-sharedLib/src/index.ts"
+      ]
+    }
   }
 }

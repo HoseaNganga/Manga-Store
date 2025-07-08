@@ -1,0 +1,41 @@
+<p-carousel
+  [value]="items"
+  [numVisible]="numVisible"
+  [numScroll]="numScroll"
+  [responsiveOptions]="responsiveOptions || defaultResponsive"
+  [circular]="true"
+  [autoplayInterval]="templateType === 'hero' ? 4000 : 0"
+  [showNavigators]="templateType !== 'hero'"
+  [showIndicators]="templateType === 'hero'"
+>
+  >
+  <ng-template pTemplate="item" let-item>
+    <div *ngIf="templateType === 'hero'" class="hero-slide relative">
+      <img
+        [src]="item"
+        alt="HeroLogo"
+        class="w-full h-[400px] top-center object-cover rounded-lg"
+      />
+      <p-button
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold"
+      >
+        Shop Now
+      </p-button>
+      >
+    </div>
+
+    <div *ngIf="templateType === 'product'" class="p-3 text-center mx-auto">
+      <lib-product-card [product]="item"></lib-product-card>
+    </div>
+    <div
+      *ngIf="templateType === 'category'"
+      class="category-item w-[120px] h-[120px] bg-gray-900 text-[#a3ffd4] flex items-center justify-center rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:scale-1 hover:shadow-xl hover:border hover:border-[#a3ffd4] sm:mx-2 mx-1"
+    >
+      <div
+        class="md:text-base text-[12px] font-semibold text-center sm:px-4 p-0"
+      >
+        {{ item.name }}
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>

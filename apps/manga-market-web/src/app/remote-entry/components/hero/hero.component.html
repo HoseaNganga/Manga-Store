@@ -1,0 +1,13 @@
+@if (!heroStore.loading() && carouselUrls().length > 0) {
+<div class="h-[400px] mt-.8">
+  <lib-ui-carousel
+    [items]="carouselUrls()"
+    [numVisible]="1"
+    [numScroll]="1"
+    templateType="hero"
+    [responsiveOptions]="[
+      { breakpoint: '9999px', numVisible: 1, numScroll: 1 }
+    ]"
+  />
+</div>
+}

@@ -1,0 +1,28 @@
+::ng-deep .card {
+  border: none !important ;
+  outline: none;
+  width: 100%;
+}
+
+::ng-deep .p-menubar {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-width: none;
+  border-style: none !important;
+
+  border: none;
+  width: 100%;
+  outline: none;
+}
+::ng-deep .p-menubar .p-menubar-button {
+  order: -1;
+}
+
+::ng-deep .p-menubar-start {
+  order: 0;
+}
+
+::ng-deep .p-menubar-mobile .p-menubar-root-list {
+  width: 250px !important;
+  height: auto;
+  border-radius: 10px;
+}

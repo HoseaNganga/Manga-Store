@@ -1,0 +1,8 @@
+@use '../src/assets/css/base.scss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+
+@import 'primeicons/primeicons.css';
