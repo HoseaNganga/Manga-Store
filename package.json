@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "prisma:generate": "prisma generate --schema=apps/manga-market-be/prisma/schema.prisma",
-    "prisma:migrate": "prisma migrate dev --schema=apps/manga-market-be/prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate deploy--schema=apps/manga-market-be/prisma/schema.prisma",
     "prisma:push": "prisma db push --schema=apps/manga-market-be/prisma/schema.prisma",
     "postinstall": "npm run prisma:generate"
   },
