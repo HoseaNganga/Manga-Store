@@ -16,6 +16,8 @@ import { GenreModule } from './genre/genre.module';
         process.cwd(),
         'apps/manga-market-be/dist/schema.gql'
       ),
+      introspection: true,
+      csrfPrevention: true,
     }),
     ProductsModule,
     HeroModule,
