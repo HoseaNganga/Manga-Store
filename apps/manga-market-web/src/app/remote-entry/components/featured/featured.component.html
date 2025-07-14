@@ -1,12 +1,11 @@
 <div>
-  <div
-    class="flex items-center gap-4 bg-gray-900 text-[#a3ffd4] rounded-xl p-3 mb-8"
-  >
-    <i class="pi pi-star-fill" style="font-size: 1.4rem"></i>
-    <h2>Featured Mangas</h2>
-  </div>
+  <lib-section-header [icon]="'pi pi-star'" [title]="'Top Rated'">
+  </lib-section-header>
+  @if(topRatedProductsLoading()){
+  <lib-section-loader />
+  }@else {
   <lib-ui-carousel
-    [items]="myProducts()"
+    [items]="topRatedProducts()"
     [templateType]="'product'"
     [numVisible]="3"
     [numScroll]="1"
@@ -17,4 +16,49 @@
       { breakpoint: '576px', numVisible: 2, numScroll: 1 }
     ]"
   />
+
+  }
+
+  <br />
+  <lib-section-header [icon]="'pi pi-chart-line'" [title]="'Trending Now'">
+  </lib-section-header>
+  @if(trendingProductsLoading()){
+  <lib-section-loader />
+  }@else {
+  <lib-ui-carousel
+    [items]="topTrendingProducts()"
+    [templateType]="'product'"
+    [numVisible]="3"
+    [numScroll]="1"
+    [responsiveOptions]="[
+      { breakpoint: '1200px', numVisible: 4, numScroll: 1 },
+      { breakpoint: '992px', numVisible: 3, numScroll: 1 },
+      { breakpoint: '768px', numVisible: 3, numScroll: 1 },
+      { breakpoint: '576px', numVisible: 2, numScroll: 1 }
+    ]"
+  />
+
+  }
+
+  <br />
+  <lib-section-header [icon]="'pi pi-star-fill'" [title]="'Featured'">
+  </lib-section-header>
+  @if(featuredProductsLoading()){
+  <lib-section-loader />
+
+  }@else {
+  <lib-ui-carousel
+    [items]="featuredProducts()"
+    [templateType]="'product'"
+    [numVisible]="3"
+    [numScroll]="1"
+    [responsiveOptions]="[
+      { breakpoint: '1200px', numVisible: 4, numScroll: 1 },
+      { breakpoint: '992px', numVisible: 3, numScroll: 1 },
+      { breakpoint: '768px', numVisible: 3, numScroll: 1 },
+      { breakpoint: '576px', numVisible: 2, numScroll: 1 }
+    ]"
+  />
+
+  }
 </div>

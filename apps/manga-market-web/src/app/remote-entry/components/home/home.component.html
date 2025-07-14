@@ -1,13 +1,13 @@
 <app-navbar></app-navbar>
 <app-hero></app-hero>
 <br />
-<div class="p-8">
+<div class="p-8" #categorySection>
   <app-homecategories></app-homecategories>
   <div class="x_md:flex gap-2 mt-[40px] w-full">
-    <div class="hidden x_md:block min-w-[20%]">
+    <div class="hidden x_md:block min-w-[20%]" #flexBarSection>
       <app-featured-flex-bar></app-featured-flex-bar>
     </div>
-    <div class="x_md:w-[80%]">
+    <div class="x_md:w-[80%]" #featuredSection>
       <app-featured></app-featured>
     </div>
   </div>

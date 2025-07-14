@@ -2,6 +2,9 @@
   <h2 class="text-center mb-[40px] text-xl font-bold text-green-600">
     Categories
   </h2>
+  @if(loading()){
+  <lib-section-loader />
+  }@else {
   <lib-ui-carousel
     [items]="myCategories()"
     [templateType]="'category'"
@@ -14,4 +17,6 @@
       { breakpoint: '576px', numVisible: 2, numScroll: 1 }
     ]"
   />
+
+  }
 </div>

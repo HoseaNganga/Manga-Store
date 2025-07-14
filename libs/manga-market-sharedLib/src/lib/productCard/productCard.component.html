@@ -43,7 +43,10 @@
   <div class="p-card-content flex flex-col justify-between h-full">
     <div class="flex items-center justify-between mt-2 mb-2">
       <div class="font-bold sm:text-lg text-[12px]">
+        @if(product.title.length>20){
+        {{ product.title.substr(0, 20) | titlecase }}... }@else {
         {{ product.title | titlecase }}
+        }
       </div>
       <i
         class="pi pi-heart text-gray-500 cursor-pointer ml-2 hover:text-red-500 transition-colors"
