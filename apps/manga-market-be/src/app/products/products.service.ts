@@ -14,8 +14,21 @@ export class ProductsService {
     return 'This action adds a new product';
   }
 
-  async findAll(): Promise<ProductWithGenres[]> {
+  async findAll(filters: {
+    featured?: boolean;
+    isNew?: boolean;
+    trending?: boolean;
+    minRating?: number;
+  }) {
+    const { featured, isNew, trending, minRating } = filters;
+
     return this.prisma.product.findMany({
+      where: {
+        ...(featured !== undefined && { featured }),
+        ...(isNew !== undefined && { isNew }),
+        ...(trending !== undefined && { trending }),
+        ...(minRating !== undefined && { rating: { gte: minRating } }),
+      },
       include: {
         genres: true,
       },

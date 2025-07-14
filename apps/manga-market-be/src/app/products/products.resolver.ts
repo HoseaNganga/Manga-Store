@@ -16,8 +16,21 @@ export class ProductsResolver {
   }
 
   @Query(() => [Product], { name: 'products' })
-  findAll() {
-    return this.productsService.findAll();
+  findAll(
+    @Args('featured', { type: () => Boolean, nullable: true })
+    featured?: boolean,
+    @Args('isNew', { type: () => Boolean, nullable: true }) isNew?: boolean,
+    @Args('trending', { type: () => Boolean, nullable: true })
+    trending?: boolean,
+    @Args('minRating', { type: () => Number, nullable: true })
+    minRating?: number
+  ) {
+    return this.productsService.findAll({
+      featured,
+      isNew,
+      trending,
+      minRating,
+    });
   }
 
   @Query(() => Product, { name: 'product' })

@@ -7,6 +7,10 @@
   [autoplayInterval]="templateType === 'hero' ? 4000 : 0"
   [showNavigators]="templateType !== 'hero'"
   [showIndicators]="templateType === 'hero'"
+  [orientation]="orientation"
+  [verticalViewPortHeight]="
+    orientation === 'vertical' ? verticalHeight : '440px'
+  "
 >
   >
   <ng-template pTemplate="item" let-item>
@@ -36,6 +40,22 @@
       >
         {{ item.name }}
       </div>
+    </div>
+    <div *ngIf="templateType === 'vertical-product'" class="mb-4 w-full px-4">
+      <p-card class="bg-gray-900 text-[#a3ffd4]">
+        <div class="flex flex-col gap-4 justify-center items-center">
+          <h2>{{ item.title }}</h2>
+          <p class="text-gray-400">by {{ item.author }}</p>
+          <img
+            [src]="item.coverUrl"
+            alt="{{ item.title }}"
+            class="w-[120px] h-[120px] object-contain"
+          />
+          <p-button [raised]="true" [rounded]="true" size="small">
+            Explore Now
+          </p-button>
+        </div>
+      </p-card>
     </div>
   </ng-template>
 </p-carousel>

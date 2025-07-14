@@ -4,10 +4,18 @@ import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { ProductCardComponent } from '../productCard/productCard.component';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'lib-ui-carousel',
-  imports: [CommonModule, CarouselModule, ButtonModule, TagModule,ProductCardComponent],
+  imports: [
+    CommonModule,
+    CarouselModule,
+    ButtonModule,
+    TagModule,
+    ProductCardComponent,
+    CardModule,
+  ],
   templateUrl: './ui-carousel.component.html',
   styleUrl: './ui-carousel.component.scss',
 })
@@ -15,8 +23,10 @@ export class UiCarouselComponent {
   @Input() items: any[] = [];
   @Input() numVisible = 1;
   @Input() numScroll = 1;
-  @Input() templateType: 'hero' | 'product' | 'category' = 'hero';
+  @Input() templateType: 'hero' | 'product' | 'category'|'vertical-product' = 'hero';
   @Input() responsiveOptions: any[] | null = null;
+  @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @Input() verticalHeight = '330px';
 
   defaultResponsive: any[] = [
     {

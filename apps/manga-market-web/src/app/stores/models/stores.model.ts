@@ -4,8 +4,19 @@ import { gql } from 'apollo-angular';
 export interface ProductState {
   products: Product[];
   featuredProducts: Product[];
+  trendingProducts: Product[];
+  newArrivals: Product[];
+  topRatedProducts: Product[];
   loading: boolean;
   error: string | null;
+  loadingFeatured: boolean;
+  loadingTrending: boolean;
+  loadingNewArrivals: boolean;
+  loadingTopRated: boolean;
+  hasFetchedFeatured: boolean;
+  hasFetchedTrending: boolean;
+  hasFetchedNewArrivals: boolean;
+  hasFetchedTopRated: boolean;
 }
 
 export interface HeroState {
@@ -21,8 +32,18 @@ export interface genreState {
 }
 
 export const GET_PRODUCTS = gql`
-  query GetProducts {
-    products {
+  query GetProducts(
+    $featured: Boolean
+    $trending: Boolean
+    $isNew: Boolean
+    $minRating: Float
+  ) {
+    products(
+      featured: $featured
+      trending: $trending
+      isNew: $isNew
+      minRating: $minRating
+    ) {
       id
       title
       author
@@ -38,6 +59,8 @@ export const GET_PRODUCTS = gql`
       rating
       releaseDate
       featured
+      trending
+      isNew
       stripePriceId
       createdAt
       updatedAt
