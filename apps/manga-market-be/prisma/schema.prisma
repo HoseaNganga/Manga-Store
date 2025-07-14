@@ -27,6 +27,8 @@ model Product {
   rating        Float?
   releaseDate   DateTime
   featured      Boolean     @default(false)
+  trending      Boolean     @default(false)
+  isNew         Boolean     @default(false)
   images        String[]
   orderItems    OrderItem[]
   stripePriceId String      @unique

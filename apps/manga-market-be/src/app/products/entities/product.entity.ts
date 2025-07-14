@@ -47,4 +47,10 @@ export class Product {
 
   @Field()
   updatedAt!: Date;
+
+  @Field()
+  trending!: boolean;
+
+  @Field()
+  isNew!: boolean;
 }
