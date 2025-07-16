@@ -1,16 +1,44 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { GET_PRODUCTS, ProductState } from './models/stores.model';
+import {
+  GET_PRODUCTS,
+  PaginatedProductData,
+  ProductState,
+} from './models/stores.model';
 import { Apollo } from 'apollo-angular';
 import { inject } from '@angular/core';
-import { Product } from '@prisma/client';
 import { tap } from 'rxjs';
 
 const initialState: ProductState = {
-  products: [],
-  featuredProducts: [],
-  trendingProducts: [],
-  newArrivals: [],
-  topRatedProducts: [],
+  products: {
+    results: [],
+    currentPage: 1,
+    totalPages: 0,
+    totalCount: 0,
+  },
+  featuredProducts: {
+    results: [],
+    currentPage: 1,
+    totalPages: 0,
+    totalCount: 0,
+  },
+  trendingProducts: {
+    results: [],
+    currentPage: 1,
+    totalPages: 0,
+    totalCount: 0,
+  },
+  newArrivals: {
+    results: [],
+    currentPage: 1,
+    totalPages: 0,
+    totalCount: 0,
+  },
+  topRatedProducts: {
+    results: [],
+    currentPage: 1,
+    totalPages: 0,
+    totalCount: 0,
+  },
   loading: false,
   error: null,
   loadingFeatured: false,
@@ -27,22 +55,19 @@ export const ProductStore = signalStore(
   withMethods((store, apollo = inject(Apollo)) => ({
     loadAllProducts() {
       patchState(store, { loading: true });
-      console.log('🔄 Fetching All Products...');
+
       apollo
-        .watchQuery<{ products: Product[] }>({
+        .watchQuery<{ products: PaginatedProductData }>({
           query: GET_PRODUCTS,
+          variables: { page: 1, limit: 10 },
         })
         .valueChanges.pipe(
           tap({
             next: ({ data }) => {
-              console.log('✅ All Proucts Loaded');
-
               patchState(store, { products: data.products, loading: false });
             },
 
             error: (error) => {
-              console.log('✅ Error Loading All Products');
-
               patchState(store, { error: error.message, loading: false });
             },
           })
@@ -51,16 +76,15 @@ export const ProductStore = signalStore(
     },
     loadFeaturedProducts() {
       patchState(store, { loadingFeatured: true });
-      console.log('🔄 Fetching Featured Products...');
+
       apollo
-        .watchQuery<{ products: Product[] }>({
+        .watchQuery<{ products: PaginatedProductData }>({
           query: GET_PRODUCTS,
-          variables: { featured: true },
+          variables: { featured: true, page: 1, limit: 10 },
         })
         .valueChanges.pipe(
           tap({
             next: ({ data }) => {
-              console.log('✅ All Featured Proucts Loaded');
               patchState(store, {
                 featuredProducts: data.products,
                 loadingFeatured: false,
@@ -68,7 +92,6 @@ export const ProductStore = signalStore(
             },
 
             error: (error) => {
-              console.log('Error Loading Featured Proucts');
               patchState(store, {
                 error: error.message,
                 loadingFeatured: false,
@@ -82,14 +105,13 @@ export const ProductStore = signalStore(
       patchState(store, { loadingTrending: true });
       console.log('🔄 Fetching Trending Products...');
       apollo
-        .watchQuery<{ products: Product[] }>({
+        .watchQuery<{ products: PaginatedProductData }>({
           query: GET_PRODUCTS,
-          variables: { trending: true },
+          variables: { trending: true, page: 1, limit: 10 },
         })
         .valueChanges.pipe(
           tap({
             next: ({ data }) => {
-              console.log('✅ All Trending Proucts Loaded');
               patchState(store, {
                 trendingProducts: data.products,
                 loadingTrending: false,
@@ -97,7 +119,6 @@ export const ProductStore = signalStore(
             },
 
             error: (error) => {
-              console.log('Error Fetching Trending Products!');
               patchState(store, {
                 error: error.message,
                 loadingTrending: false,
@@ -114,14 +135,13 @@ export const ProductStore = signalStore(
       });
       console.log('Fetching isNew Products!');
       apollo
-        .watchQuery<{ products: Product[] }>({
+        .watchQuery<{ products: PaginatedProductData }>({
           query: GET_PRODUCTS,
-          variables: { isNew: true },
+          variables: { isNew: true, page: 1, limit: 10 },
         })
         .valueChanges.pipe(
           tap({
             next: ({ data }) => {
-              console.log('Successfuly Fetched isNewProducts! ');
               patchState(store, {
                 newArrivals: data.products,
                 loadingNewArrivals: false,
@@ -129,7 +149,6 @@ export const ProductStore = signalStore(
             },
 
             error: (error) => {
-              console.log('Error Fetching isNewProducts');
               patchState(store, {
                 error: error.message,
                 loadingNewArrivals: false,
@@ -143,9 +162,9 @@ export const ProductStore = signalStore(
     loadTopRatedProducts(minRating = 4.8) {
       patchState(store, { loadingTopRated: true });
       apollo
-        .watchQuery<{ products: Product[] }>({
+        .watchQuery<{ products: PaginatedProductData }>({
           query: GET_PRODUCTS,
-          variables: { minRating },
+          variables: { minRating, page: 1, limit: 10 },
         })
         .valueChanges.pipe(
           tap({

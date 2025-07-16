@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   readonly hasQuery = computed(() => this.searchQuery().trim().length > 0);
   private readonly searchStore = inject(SearchStore);
   private readonly route = inject(ActivatedRoute);
-  readonly results = computed(() => this.searchStore.results());
+  readonly results = computed(() => this.searchStore.results().results);
   readonly loading = computed(() => this.searchStore.loading());
   hasSearched = signal(false);
 

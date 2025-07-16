@@ -13,6 +13,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(remoteRoutes, {
+      scrollPositionRestoration: 'top',
       onSameUrlNavigation: 'reload',
       initialNavigation: 'enabledBlocking',
     }),
