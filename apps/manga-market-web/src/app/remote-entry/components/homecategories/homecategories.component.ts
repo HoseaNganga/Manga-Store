@@ -1,11 +1,12 @@
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SectionLoaderComponent, UiCarouselComponent } from '@mangamarket/manga-market-sharedLib';
+import { UiCarouselComponent } from '@mangamarket/manga-market-sharedLib';
 import { GenreStore } from '../../../stores/genre.store';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-homecategories',
-  imports: [CommonModule, UiCarouselComponent,SectionLoaderComponent],
+  imports: [CommonModule, UiCarouselComponent, ProgressSpinner],
   templateUrl: './homecategories.component.html',
   styleUrl: './homecategories.component.scss',
 })

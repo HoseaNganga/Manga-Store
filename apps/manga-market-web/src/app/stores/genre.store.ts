@@ -1,11 +1,11 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { genreState, GET_GENRES } from './models/stores.model';
+import { GenreState, GET_GENRES } from './models/stores.model';
 import { inject } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Genre } from '@prisma/client';
 import { tap } from 'rxjs';
 
-const initialState: genreState = {
+const initialState: GenreState = {
   genres: [],
   loading: false,
   error: null,

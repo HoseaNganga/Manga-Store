@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+
+@if (loading()) {
+<p>Loading....</p>
+<lib-section-loader />
+} @else {
+<div class="p-6">
+  @if (hasQuery()) {
+  <h2 class="text-xl font-semibold mb-4 text-green-600">
+    Search Results for: "{{ searchQuery() }}"
+  </h2>
+  @if (results().length > 0) {
+  <!-- Render results -->
+
+  } @else {
+  <p class="text-green-600">No results found for "{{ searchQuery() }}"</p>
+  } } @else {
+  <h2 class="text-xl font-semibold mb-4 text-green-600">No Query Present!</h2>
+  }
+</div>
+}

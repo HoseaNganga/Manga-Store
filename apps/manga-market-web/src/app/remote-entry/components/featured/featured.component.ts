@@ -4,8 +4,8 @@ import { ProductStore } from '../../../stores/product.store';
 import {
   SectionHeaderComponent,
   UiCarouselComponent,
-  SectionLoaderComponent,
 } from '@mangamarket/manga-market-sharedLib';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-featured',
@@ -13,7 +13,8 @@ import {
     CommonModule,
     UiCarouselComponent,
     SectionHeaderComponent,
-    SectionLoaderComponent,
+
+    ProgressSpinner,
   ],
   templateUrl: './featured.component.html',
   styleUrl: './featured.component.scss',
@@ -31,19 +32,13 @@ export class FeaturedComponent {
     this.productStore.trendingProducts()
   );
 
-  readonly featuredProductsLoading = computed(
-    () =>
-      this.productStore.loadingFeatured() &&
-      this.productStore.hasFetchedFeatured()
+  readonly featuredProductsLoading = computed(() =>
+    this.productStore.loadingFeatured()
   );
-  readonly topRatedProductsLoading = computed(
-    () =>
-      this.productStore.loadingTopRated() &&
-      this.productStore.hasFetchedTopRated()
+  readonly topRatedProductsLoading = computed(() =>
+    this.productStore.loadingTopRated()
   );
-  readonly trendingProductsLoading = computed(
-    () =>
-      this.productStore.loadingTrending() &&
-      this.productStore.hasFetchedTrending()
+  readonly trendingProductsLoading = computed(() =>
+    this.productStore.loadingTrending()
   );
 }

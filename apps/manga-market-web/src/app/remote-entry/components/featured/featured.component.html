@@ -2,7 +2,13 @@
   <lib-section-header [icon]="'pi pi-star'" [title]="'Top Rated'">
   </lib-section-header>
   @if(topRatedProductsLoading()){
-  <lib-section-loader />
+  <div class="card flex justify-center">
+    <p-progress-spinner
+      fill="transparent"
+      animationDuration=".5s"
+      [style]="{ width: '50px', height: '50px' }"
+    />
+  </div>
   }@else {
   <lib-ui-carousel
     [items]="topRatedProducts()"
@@ -23,7 +29,13 @@
   <lib-section-header [icon]="'pi pi-chart-line'" [title]="'Trending Now'">
   </lib-section-header>
   @if(trendingProductsLoading()){
-  <lib-section-loader />
+  <div class="card flex justify-center">
+    <p-progress-spinner
+      fill="transparent"
+      animationDuration=".5s"
+      [style]="{ width: '50px', height: '50px' }"
+    />
+  </div>
   }@else {
   <lib-ui-carousel
     [items]="topTrendingProducts()"
@@ -44,7 +56,13 @@
   <lib-section-header [icon]="'pi pi-star-fill'" [title]="'Featured'">
   </lib-section-header>
   @if(featuredProductsLoading()){
-  <lib-section-loader />
+  <div class="card flex justify-center">
+    <p-progress-spinner
+      fill="transparent"
+      animationDuration=".5s"
+      [style]="{ width: '50px', height: '50px' }"
+    />
+  </div>
 
   }@else {
   <lib-ui-carousel

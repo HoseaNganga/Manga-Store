@@ -4,10 +4,10 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import {
   SectionHeaderComponent,
-  SectionLoaderComponent,
   UiCarouselComponent,
 } from '@mangamarket/manga-market-sharedLib';
 import { ProductStore } from '../../../stores/product.store';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-featured-flex-bar',
@@ -17,7 +17,7 @@ import { ProductStore } from '../../../stores/product.store';
     ButtonModule,
     SectionHeaderComponent,
     UiCarouselComponent,
-    SectionLoaderComponent,
+    ProgressSpinner,
   ],
   templateUrl: './featured-flex-bar.component.html',
   styleUrl: './featured-flex-bar.component.scss',
@@ -26,9 +26,5 @@ export class FeaturedFlexBarComponent {
   private readonly productStore = inject(ProductStore);
 
   readonly topNewArrivals = computed(() => this.productStore.newArrivals());
-  readonly loading = computed(
-    () =>
-      this.productStore.loadingNewArrivals() &&
-      this.productStore.hasFetchedNewArrivals()
-  );
+  readonly loading = computed(() => this.productStore.loadingNewArrivals());
 }
