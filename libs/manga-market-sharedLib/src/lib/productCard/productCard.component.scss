@@ -22,12 +22,18 @@
   .add-to-cart-container {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    text-align: center;
   }
 
-  &:hover {
+  /*  &:hover {
     .add-to-cart-container {
       opacity: 1;
     }
+  } */
+  ::ng-deep .productp-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .badge-instock {

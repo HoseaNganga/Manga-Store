@@ -58,7 +58,7 @@
     <div class="flex justify-between items-center">
       <div class="mb-2">
         <p-rating
-          [ngModel]="product.rating || 0"
+          [ngModel]="product.rating ?? 0"
           [readonly]="true"
           [stars]="5"
           style="color: yellow"
@@ -70,14 +70,16 @@
       </div>
     </div>
 
-    <div class="add-to-cart-container transition-opacity duration-300">
+    <div
+      class="add-to-cart-container transition-opacity duration-300 text-center"
+    >
       <p-button
         label="Add to Cart"
         icon="pi pi-shopping-cart"
         severity="success"
         [disabled]="product.stock === 0"
         (click)="addToCart(product)"
-        class="w-full"
+        class="w-full productp-button"
         size="small"
       ></p-button>
     </div>

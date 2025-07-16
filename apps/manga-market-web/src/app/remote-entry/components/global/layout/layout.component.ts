@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
@@ -21,7 +21,7 @@ import { HeroStore } from '../../../../stores/index';
     ]),
   ],
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
   private readonly _ngxSpinnerService = inject(NgxSpinnerService);
   private readonly _routerService = inject(Router);
   private readonly heroStore = inject(HeroStore);

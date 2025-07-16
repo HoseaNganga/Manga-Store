@@ -21,7 +21,7 @@ export const SearchStore = signalStore(
   withState(initialState),
   withMethods((store, apollo = inject(Apollo)) => ({
     searchProducts(term: string) {
-      patchState(store, { loading: true, error: null });
+      patchState(store, { loading: true, error: null, results: [] });
 
       apollo
         .watchQuery<{ searchProducts: Product[] }>({
@@ -44,6 +44,9 @@ export const SearchStore = signalStore(
           })
         )
         .subscribe();
+    },
+    clearSearch() {
+      patchState(store, { results: [], loading: false, error: null });
     },
   }))
 );
