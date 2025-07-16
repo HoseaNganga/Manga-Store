@@ -53,12 +53,11 @@ export class HomeComponent implements AfterViewInit {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          console.log('🟢 Triggering fetch for:', ref.nativeElement);
           callback();
           observer.unobserve(ref.nativeElement);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.32 }
     );
 
     observer.observe(ref.nativeElement);

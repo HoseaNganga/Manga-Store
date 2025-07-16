@@ -6,7 +6,7 @@ export const navLinks: MenuItem[] = [
     icon: 'pi pi-home',
   },
   {
-    label: 'Categories',
+    label: 'Manga',
     icon: 'pi pi-th-large',
   },
 ];

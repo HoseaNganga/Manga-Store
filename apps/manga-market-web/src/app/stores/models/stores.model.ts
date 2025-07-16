@@ -13,10 +13,6 @@ export interface ProductState {
   loadingTrending: boolean;
   loadingNewArrivals: boolean;
   loadingTopRated: boolean;
-  hasFetchedFeatured: boolean;
-  hasFetchedTrending: boolean;
-  hasFetchedNewArrivals: boolean;
-  hasFetchedTopRated: boolean;
 }
 
 export interface HeroState {
@@ -25,8 +21,14 @@ export interface HeroState {
   error: string | null;
 }
 
-export interface genreState {
+export interface GenreState {
   genres: Genre[];
+  loading: boolean;
+  error: string | null;
+}
+
+export interface SearchState {
+  results: Product[];
   loading: boolean;
   error: string | null;
 }
@@ -82,6 +84,33 @@ export const GET_GENRES = gql`
     genres {
       id
       name
+    }
+  }
+`;
+
+export const SEARCH_PRODUCTS = gql`
+  query SearchProducts($term: String!) {
+    searchProducts(term: $term) {
+      id
+      title
+      author
+      genres {
+        id
+        name
+      }
+      description
+      price
+      stock
+      coverUrl
+      images
+      rating
+      releaseDate
+      featured
+      stripePriceId
+      createdAt
+      updatedAt
+      trending
+      isNew
     }
   }
 `;

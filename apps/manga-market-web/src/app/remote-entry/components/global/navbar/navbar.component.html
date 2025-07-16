@@ -31,20 +31,25 @@
     <ng-template #end>
       <div class="flex items-center gap-5 mt-1">
         <button
-          aria-label=""
+          aria-label="showSearch"
           pButton
           type="button"
           icon="pi pi-search"
-          (click)="showSearch = !showSearch"
+          (click)="toggleSearch()"
           class="p-button-text p-button w-[30px] h-[30px] rounded-full"
         ></button>
-        <input
-          *ngIf="showSearch"
-          type="text"
-          pInputText
-          placeholder="Search Author Or Title"
-          class="w-full transition-all duration-300"
-        />
+        <form>
+          <input
+            *ngIf="showSearch()"
+            type="text"
+            pInputText
+            placeholder="Search Author Or Title"
+            class="w-full transition-all duration-300"
+            [value]="query()"
+            (input)="onSearchInput($event)"
+          />
+        </form>
+
         <i
           class="pi pi-shopping-cart text-3xl"
           style="font-size: 1.6rem; color: green"

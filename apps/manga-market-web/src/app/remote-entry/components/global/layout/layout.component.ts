@@ -4,9 +4,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { filter } from 'rxjs';
 import { NavigationEnd, RouterModule, Router } from '@angular/router';
-import { HeroStore } from '../../../../stores/hero.store';
-import { GenreStore } from '../../../../stores/genre.store';
-import { ProductStore } from '../../../../stores/product.store';
+import { HeroStore } from '../../../../stores/index';
 
 @Component({
   selector: 'app-layout',
@@ -27,16 +25,10 @@ export class LayoutComponent {
   private readonly _ngxSpinnerService = inject(NgxSpinnerService);
   private readonly _routerService = inject(Router);
   private readonly heroStore = inject(HeroStore);
-  private readonly genreStore = inject(GenreStore);
-  private readonly productStore = inject(ProductStore);
 
   constructor() {
     effect(() => {
-      if (
-        this.heroStore.loading() ||
-        this.genreStore.loading() ||
-        this.productStore.loading()
-      ) {
+      if (this.heroStore.loading()) {
         this._ngxSpinnerService.show();
       } else {
         this._ngxSpinnerService.hide();

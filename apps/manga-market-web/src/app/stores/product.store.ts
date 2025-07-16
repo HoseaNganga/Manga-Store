@@ -17,10 +17,6 @@ const initialState: ProductState = {
   loadingTrending: false,
   loadingNewArrivals: false,
   loadingTopRated: false,
-  hasFetchedFeatured: false,
-  hasFetchedTrending: false,
-  hasFetchedNewArrivals: false,
-  hasFetchedTopRated: false,
 };
 
 export const ProductStore = signalStore(
@@ -31,23 +27,31 @@ export const ProductStore = signalStore(
   withMethods((store, apollo = inject(Apollo)) => ({
     loadAllProducts() {
       patchState(store, { loading: true });
+      console.log('🔄 Fetching All Products...');
       apollo
         .watchQuery<{ products: Product[] }>({
           query: GET_PRODUCTS,
         })
         .valueChanges.pipe(
           tap({
-            next: ({ data }) =>
-              patchState(store, { products: data.products, loading: false }),
+            next: ({ data }) => {
+              console.log('✅ All Proucts Loaded');
 
-            error: (error) =>
-              patchState(store, { error: error.message, loading: false }),
+              patchState(store, { products: data.products, loading: false });
+            },
+
+            error: (error) => {
+              console.log('✅ Error Loading All Products');
+
+              patchState(store, { error: error.message, loading: false });
+            },
           })
         )
         .subscribe();
     },
     loadFeaturedProducts() {
-      patchState(store, { loadingFeatured: true, hasFetchedFeatured: true });
+      patchState(store, { loadingFeatured: true });
+      console.log('🔄 Fetching Featured Products...');
       apollo
         .watchQuery<{ products: Product[] }>({
           query: GET_PRODUCTS,
@@ -55,22 +59,28 @@ export const ProductStore = signalStore(
         })
         .valueChanges.pipe(
           tap({
-            next: ({ data }) =>
+            next: ({ data }) => {
+              console.log('✅ All Featured Proucts Loaded');
               patchState(store, {
                 featuredProducts: data.products,
                 loadingFeatured: false,
-              }),
-            error: (error) =>
+              });
+            },
+
+            error: (error) => {
+              console.log('Error Loading Featured Proucts');
               patchState(store, {
                 error: error.message,
                 loadingFeatured: false,
-              }),
+              });
+            },
           })
         )
         .subscribe();
     },
     loadTrendingProducts() {
-      patchState(store, { loadingTrending: true, hasFetchedTrending: true });
+      patchState(store, { loadingTrending: true });
+      console.log('🔄 Fetching Trending Products...');
       apollo
         .watchQuery<{ products: Product[] }>({
           query: GET_PRODUCTS,
@@ -78,16 +88,21 @@ export const ProductStore = signalStore(
         })
         .valueChanges.pipe(
           tap({
-            next: ({ data }) =>
+            next: ({ data }) => {
+              console.log('✅ All Trending Proucts Loaded');
               patchState(store, {
                 trendingProducts: data.products,
                 loadingTrending: false,
-              }),
-            error: (error) =>
+              });
+            },
+
+            error: (error) => {
+              console.log('Error Fetching Trending Products!');
               patchState(store, {
                 error: error.message,
                 loadingTrending: false,
-              }),
+              });
+            },
           })
         )
         .subscribe();
@@ -96,8 +111,8 @@ export const ProductStore = signalStore(
     loadNewArrivals() {
       patchState(store, {
         loadingNewArrivals: true,
-        hasFetchedNewArrivals: true,
       });
+      console.log('Fetching isNew Products!');
       apollo
         .watchQuery<{ products: Product[] }>({
           query: GET_PRODUCTS,
@@ -105,23 +120,28 @@ export const ProductStore = signalStore(
         })
         .valueChanges.pipe(
           tap({
-            next: ({ data }) =>
+            next: ({ data }) => {
+              console.log('Successfuly Fetched isNewProducts! ');
               patchState(store, {
                 newArrivals: data.products,
                 loadingNewArrivals: false,
-              }),
-            error: (error) =>
+              });
+            },
+
+            error: (error) => {
+              console.log('Error Fetching isNewProducts');
               patchState(store, {
                 error: error.message,
                 loadingNewArrivals: false,
-              }),
+              });
+            },
           })
         )
         .subscribe();
     },
 
     loadTopRatedProducts(minRating = 4.8) {
-      patchState(store, { loadingTopRated: true, hasFetchedTopRated: true });
+      patchState(store, { loadingTopRated: true });
       apollo
         .watchQuery<{ products: Product[] }>({
           query: GET_PRODUCTS,

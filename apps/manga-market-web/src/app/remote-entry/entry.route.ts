@@ -18,6 +18,13 @@ export const remoteRoutes: Routes = [
         redirectTo: 'home',
         pathMatch: 'full',
       },
+      {
+        path: 'search',
+        loadComponent: () =>
+          import('./components/search/search.component').then(
+            (m) => m.SearchComponent
+          ),
+      },
     ],
   },
 ];
