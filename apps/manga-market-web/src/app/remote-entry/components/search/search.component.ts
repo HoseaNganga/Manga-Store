@@ -7,8 +7,6 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-/* import { toObservable } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs'; */
 import { NavbarComponent } from '../global/navbar/navbar.component';
 import { query, SearchStore, showSearch } from '../../../stores';
 import {
@@ -16,7 +14,8 @@ import {
   ProductCardComponent,
 } from '@mangamarket/manga-market-sharedLib';
 import { ActivatedRoute } from '@angular/router';
-
+import { ProgressSpinner } from 'primeng/progressspinner';
+import { isFirstPageLoading } from '../../../stores';
 @Component({
   selector: 'app-search',
   imports: [
@@ -24,6 +23,7 @@ import { ActivatedRoute } from '@angular/router';
     NavbarComponent,
     SectionLoaderComponent,
     ProductCardComponent,
+    ProgressSpinner,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
@@ -36,7 +36,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   readonly results = computed(() => this.searchStore.results().results);
   readonly loading = computed(() => this.searchStore.loading());
+  readonly pagination = computed(() => this.searchStore.results());
+  readonly currentPage = computed(() => this.pagination().currentPage);
+  readonly totalPages = computed(() => this.pagination().totalPages);
   hasSearched = signal(false);
+  readonly firstPageLoading = isFirstPageLoading;
+
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -53,6 +58,21 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
 
     showSearch.set(true);
+  }
+
+  onScroll(event: Event) {
+    const target = event.target as HTMLElement;
+
+    const threshold = 200;
+    const scrolledToBottom =
+      target.scrollTop + target.clientHeight >= target.scrollHeight - threshold;
+
+    if (scrolledToBottom && !this.loading() && this.hasQuery()) {
+      const nextPage = this.currentPage() + 1;
+      if (nextPage <= this.totalPages()) {
+        this.searchStore.searchProducts(this.searchQuery(), true, nextPage, 10);
+      }
+    }
   }
 
   ngOnDestroy(): void {

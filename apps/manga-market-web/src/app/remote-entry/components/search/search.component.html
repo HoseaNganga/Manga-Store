@@ -1,24 +1,34 @@
 <app-navbar></app-navbar>
+<div
+  class="scroll-container"
+  (scroll)="onScroll($event)"
+  style="height: 85vh; overflow-y: auto"
+>
+  @if (firstPageLoading()) {
+  <lib-section-loader />
+  } @else {
+  <div class="p-6">
+    @if (hasQuery()) {
+    <h2 class="text-xl font-semibold mb-4 text-green-600">
+      Search Results for: "{{ searchQuery() }}"
+    </h2>
+    @if (results().length > 0) {
+    <div class="flex gap-4 flex-wrap items-center justify-evenly">
+      @for(item of results();track item.id ){
+      <lib-product-card [product]="item" />
+      }
+    </div>
 
-@if (loading()) {
-<lib-section-loader />
-} @else {
-<div class="p-6">
-  @if (hasQuery()) {
-  <h2 class="text-xl font-semibold mb-4 text-green-600">
-    Search Results for: "{{ searchQuery() }}"
-  </h2>
-  @if (results().length > 0) {
-  <div class="flex gap-4 flex-wrap items-center">
-    @for(item of results();track item.id ){
-    <lib-product-card [product]="item" />
+    } @else if(hasSearched()) {
+    <p class="text-green-600">No results found for "{{ searchQuery() }}"</p>
+    } } @else {
+    <h2 class="text-xl font-semibold mb-4 text-green-600">No Query Present!</h2>
     }
   </div>
-
-  } @else if(hasSearched()) {
-  <p class="text-green-600">No results found for "{{ searchQuery() }}"</p>
-  } } @else {
-  <h2 class="text-xl font-semibold mb-4 text-green-600">No Query Present!</h2>
   }
+  <p-progressSpinner
+    *ngIf="loading() && results().length > 0"
+    styleClass="custom-spinner"
+    strokeWidth="3"
+  />
 </div>
-}
