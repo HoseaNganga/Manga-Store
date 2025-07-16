@@ -1,7 +1,6 @@
 <app-navbar></app-navbar>
 
 @if (loading()) {
-<p>Loading....</p>
 <lib-section-loader />
 } @else {
 <div class="p-6">
@@ -10,9 +9,13 @@
     Search Results for: "{{ searchQuery() }}"
   </h2>
   @if (results().length > 0) {
-  <!-- Render results -->
+  <div class="flex gap-4 flex-wrap items-center">
+    @for(item of results();track item.id ){
+    <lib-product-card [product]="item" />
+    }
+  </div>
 
-  } @else {
+  } @else if(hasSearched()) {
   <p class="text-green-600">No results found for "{{ searchQuery() }}"</p>
   } } @else {
   <h2 class="text-xl font-semibold mb-4 text-green-600">No Query Present!</h2>

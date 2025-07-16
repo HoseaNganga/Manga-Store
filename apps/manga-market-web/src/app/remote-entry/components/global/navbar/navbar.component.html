@@ -7,6 +7,52 @@
         class="x_md:block hidden w-[30px] h-[30px] rounded-full object-contain"
       />
     </ng-template>
+
+    <ng-template #end>
+      <div class="flex items-center gap-5 mt-1">
+        <button
+          aria-label="showSearch"
+          pButton
+          type="button"
+          icon="pi pi-search"
+          (click)="toggleSearch()"
+          class="p-button-text p-button w-[30px] h-[30px] rounded-full"
+        ></button>
+
+        <form (submit)="onSearchSubmit()">
+          <input
+            *ngIf="showSearch()"
+            type="text"
+            pInputText
+            placeholder="Search Author Or Title"
+            class="w-full transition-all duration-300"
+            [value]="query()"
+            (input)="onSearchInput($event)"
+          />
+        </form>
+
+        <i
+          class="pi pi-shopping-cart text-3xl"
+          style="font-size: 1.6rem; color: green"
+          pBadge
+          value="2"
+        ></i>
+
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          shape="circle"
+        />
+      </div>
+    </ng-template>
+  </p-menubar>
+  <!--   <p-menubar [model]="items" class="flex items-center">
+    <ng-template #start>
+      <img
+        src="assets/images/mangalogo.jpg"
+        alt="mangalogo"
+        class="x_md:block hidden w-[30px] h-[30px] rounded-full object-contain"
+      />
+    </ng-template>
     <ng-template #item let-item let-root="root">
       <a pRipple class="flex items-center p-menubar-item-link">
         <i [ngClass]="item.icon"></i>
@@ -63,5 +109,5 @@
         />
       </div>
     </ng-template>
-  </p-menubar>
+  </p-menubar> -->
 </div>

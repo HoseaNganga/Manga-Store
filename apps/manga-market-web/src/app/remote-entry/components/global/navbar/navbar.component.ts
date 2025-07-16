@@ -1,7 +1,7 @@
-import { Component, inject, OnDestroy, WritableSignal } from '@angular/core';
+import { Component, inject, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { navLinks } from './module/navbar.module';
+//import { navLinks } from './module/navbar.module';
 import { Menubar } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
@@ -9,10 +9,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { query, showSearch } from '../../../../stores/index';
-import { toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-navbar',
@@ -25,35 +23,39 @@ import { toObservable } from '@angular/core/rxjs-interop';
     RippleModule,
     ButtonModule,
     FormsModule,
+    RouterModule,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent implements OnDestroy {
-  protected searchSubscription: Subscription | null = null;
+export class NavbarComponent {
   private readonly router = inject(Router);
 
-  items: MenuItem[] = navLinks;
+  /*  items: MenuItem[] = navLinks; */
+  items: MenuItem[] = [
+    {
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/',
+    },
+    {
+      label: 'Manga',
+      icon: 'pi pi-th-large',
+      routerLink: '/manga',
+    },
+  ];
   showSearch: WritableSignal<boolean> = showSearch;
   query: WritableSignal<string> = query;
-
-  constructor() {
-    this.searchSubscription = toObservable(query)
-      .pipe(
-        debounceTime(400),
-        distinctUntilChanged(),
-        filter((val) => val.trim().length > 0)
-      )
-      .subscribe((term) => {
-        this.router.navigate(['/search'], {
-          queryParams: { query: term.trim() },
-        });
-      });
-  }
 
   onSearchInput(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this.updateQuery(inputElement.value);
+    if (inputElement.value === '') {
+      this.router.navigate([], {
+        queryParams: { query: null },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   toggleSearch() {
@@ -64,32 +66,16 @@ export class NavbarComponent implements OnDestroy {
     }
   }
 
+  onSearchSubmit(): void {
+    const term = query().trim();
+    if (term) {
+      this.router.navigate(['/search'], {
+        queryParams: { query: term },
+      });
+    }
+  }
+
   updateQuery(value: string) {
     query.set(value);
   }
-
-  ngOnDestroy(): void {
-    this.searchSubscription?.unsubscribe();
-  }
 }
-
-/*  constructor() {
-    effect(() => {
-      const value = query();
-      if (value.trim()) {
-        this.router.navigate(['/search'], {
-          queryParams: { query: value.trim() },
-        });
-      }
-    });
-  } */
-
-/*  handleSubmit(event: Event) {
-    event.preventDefault();
-    const trimmed = query().trim();
-    if (trimmed) {
-      this.router.navigate(['/search'], {
-        queryParams: { query: trimmed },
-      });
-    }
-  } */

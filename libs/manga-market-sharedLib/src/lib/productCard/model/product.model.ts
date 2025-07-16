@@ -4,7 +4,7 @@ export interface ProductCard {
   coverUrl: string;
   price: number;
   stock: number;
-  rating?: number;
+  rating?: number |null ;
 }
 
 export interface StockBadgeInfo {
