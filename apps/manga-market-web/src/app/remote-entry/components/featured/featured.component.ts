@@ -22,14 +22,14 @@ import { ProgressSpinner } from 'primeng/progressspinner';
 export class FeaturedComponent {
   private readonly productStore = inject(ProductStore);
 
-  readonly featuredProducts = computed(() =>
-    this.productStore.featuredProducts()
+  readonly featuredProducts = computed(
+    () => this.productStore.featuredProducts().results
   );
-  readonly topRatedProducts = computed(() =>
-    this.productStore.topRatedProducts()
+  readonly topRatedProducts = computed(
+    () => this.productStore.topRatedProducts().results
   );
-  readonly topTrendingProducts = computed(() =>
-    this.productStore.trendingProducts()
+  readonly topTrendingProducts = computed(
+    () => this.productStore.trendingProducts().results
   );
 
   readonly featuredProductsLoading = computed(() =>

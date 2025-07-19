@@ -25,8 +25,13 @@ export const GenreStore = signalStore(
         })
         .valueChanges.pipe(
           tap({
-            next: ({ data }) =>
-              patchState(store, { genres: data.genres, loading: false }),
+            next: ({ data }) => {
+              const uniqueGenres = removeDuplicateGenres(data.genres).sort(
+                (a, b) => a.name.localeCompare(b.name)
+              );
+              patchState(store, { genres: uniqueGenres, loading: false });
+            },
+
             error: (error) =>
               patchState(store, { error: error.message, loading: false }),
           })
@@ -35,3 +40,13 @@ export const GenreStore = signalStore(
     },
   }))
 );
+
+function removeDuplicateGenres(genres: Genre[]): Genre[] {
+  const seen = new Set();
+  return genres.filter((genre) => {
+    const key = genre.name.trim().toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}

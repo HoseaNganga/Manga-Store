@@ -1,12 +1,19 @@
 import { Genre, heroUrl, Product } from '@prisma/client';
 import { gql } from 'apollo-angular';
 
+export interface PaginatedProductData {
+  results: Product[];
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
+}
+
 export interface ProductState {
-  products: Product[];
-  featuredProducts: Product[];
-  trendingProducts: Product[];
-  newArrivals: Product[];
-  topRatedProducts: Product[];
+  products: PaginatedProductData;
+  featuredProducts: PaginatedProductData;
+  trendingProducts: PaginatedProductData;
+  newArrivals: PaginatedProductData;
+  topRatedProducts: PaginatedProductData;
   loading: boolean;
   error: string | null;
   loadingFeatured: boolean;
@@ -28,44 +35,55 @@ export interface GenreState {
 }
 
 export interface SearchState {
-  results: Product[];
+  results: PaginatedProductData;
   loading: boolean;
   error: string | null;
 }
 
 export const GET_PRODUCTS = gql`
   query GetProducts(
+    $page: Int!
+    $limit: Int!
     $featured: Boolean
     $trending: Boolean
     $isNew: Boolean
     $minRating: Float
+    $genreId: String
   ) {
     products(
+      page: $page
+      limit: $limit
       featured: $featured
       trending: $trending
       isNew: $isNew
       minRating: $minRating
+      genreId: $genreId
     ) {
-      id
-      title
-      author
-      genres {
+      results {
         id
-        name
+        title
+        author
+        genres {
+          id
+          name
+        }
+        description
+        price
+        stock
+        coverUrl
+        images
+        rating
+        releaseDate
+        featured
+        trending
+        isNew
+        stripePriceId
+        createdAt
+        updatedAt
       }
-      description
-      price
-      stock
-      coverUrl
-      images
-      rating
-      releaseDate
-      featured
-      trending
-      isNew
-      stripePriceId
-      createdAt
-      updatedAt
+      totalCount
+      currentPage
+      totalPages
     }
   }
 `;
@@ -89,28 +107,33 @@ export const GET_GENRES = gql`
 `;
 
 export const SEARCH_PRODUCTS = gql`
-  query SearchProducts($term: String!) {
-    searchProducts(term: $term) {
-      id
-      title
-      author
-      genres {
+  query SearchProducts($term: String!, $page: Int!, $limit: Int!) {
+    searchProducts(term: $term, page: $page, limit: $limit) {
+      results {
         id
-        name
+        title
+        author
+        description
+        price
+        stock
+        coverUrl
+        images
+        rating
+        releaseDate
+        featured
+        trending
+        isNew
+        stripePriceId
+        createdAt
+        updatedAt
+        genres {
+          id
+          name
+        }
       }
-      description
-      price
-      stock
-      coverUrl
-      images
-      rating
-      releaseDate
-      featured
-      stripePriceId
-      createdAt
-      updatedAt
-      trending
-      isNew
+      totalCount
+      currentPage
+      totalPages
     }
   }
 `;

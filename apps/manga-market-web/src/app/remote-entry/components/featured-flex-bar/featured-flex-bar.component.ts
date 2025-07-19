@@ -25,6 +25,8 @@ import { ProgressSpinner } from 'primeng/progressspinner';
 export class FeaturedFlexBarComponent {
   private readonly productStore = inject(ProductStore);
 
-  readonly topNewArrivals = computed(() => this.productStore.newArrivals());
+  readonly topNewArrivals = computed(
+    () => this.productStore.newArrivals().results
+  );
   readonly loading = computed(() => this.productStore.loadingNewArrivals());
 }

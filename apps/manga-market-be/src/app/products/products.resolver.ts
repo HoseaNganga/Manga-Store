@@ -3,6 +3,7 @@ import { ProductsService } from './products.service';
 import { Product } from './entities/product.entity';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
+import { PaginatedProducts } from './entities/paginated-products.entity';
 
 @Resolver(() => Product)
 export class ProductsResolver {
@@ -15,22 +16,23 @@ export class ProductsResolver {
     return this.productsService.create(createProductInput);
   }
 
-  @Query(() => [Product], { name: 'products' })
+  @Query(() => PaginatedProducts, { name: 'products' })
   findAll(
+    @Args('page', { type: () => Int, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Int, defaultValue: 10 }) limit: number,
     @Args('featured', { type: () => Boolean, nullable: true })
     featured?: boolean,
     @Args('isNew', { type: () => Boolean, nullable: true }) isNew?: boolean,
     @Args('trending', { type: () => Boolean, nullable: true })
     trending?: boolean,
     @Args('minRating', { type: () => Number, nullable: true })
-    minRating?: number
+    minRating?: number,
+      @Args('genreId', { type: () => String, nullable: true }) genreId?: string
   ) {
-    return this.productsService.findAll({
-      featured,
-      isNew,
-      trending,
-      minRating,
-    });
+    return this.productsService.findAll(
+      { featured, isNew, trending, minRating,genreId },
+      { page, limit }
+    );
   }
 
   @Query(() => Product, { name: 'product' })
@@ -38,9 +40,13 @@ export class ProductsResolver {
     return this.productsService.findOne(id);
   }
 
-  @Query(() => [Product], { name: 'searchProducts' })
-  searchProducts(@Args('term', { type: () => String }) term: string) {
-    return this.productsService.searchProducts(term);
+  @Query(() => PaginatedProducts, { name: 'searchProducts' })
+  searchProducts(
+    @Args('term', { type: () => String }) term: string,
+    @Args('page', { type: () => Int, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Int, defaultValue: 10 }) limit: number
+  ) {
+    return this.productsService.searchProducts(term, page, limit);
   }
 
   @Mutation(() => Product)
