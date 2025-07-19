@@ -1,3 +1,52 @@
-<div class="mt-1">
-  <h2>Product Works</h2>
+<app-navbar></app-navbar>
+
+<div
+  class="scroll-container p-6"
+  (scroll)="onScroll($event)"
+  style="height: 85vh; overflow-y: auto"
+>
+  @if(firstPageLoading()){
+  <lib-section-loader />
+
+  }@else {
+  <h3 class="text-green-400 text-lg font-bold">Filter By Genre:</h3>
+  @if(categoriesloading()){
+  <div class="card flex justify-center">
+    <p-progress-spinner
+      strokeWidth="8"
+      fill="transparent"
+      animationDuration=".5s"
+      [style]="{ width: '50px', height: '50px' }"
+    />
+  </div>
+  }@else {
+  <form [formGroup]="formGroup" class="card">
+    <p-select
+      formControlName="selectedGenre"
+      [options]="myCategories()"
+      optionLabel="name"
+      placeholder="Filter By Genre"
+      class="w-full md:w-56"
+    />
+  </form>
+  }
+  <br />
+  @if(allMangaLoading()&&firstPageLoading()){
+  <div class="card">
+    <p-progress-spinner fill="transparent" animationDuration=".5s" />
+  </div>
+
+  }@else { @if(allManga().length>0){
+  <div class="flex gap-4 flex-wrap items-center justify-evenly">
+    @for(item of allManga();track item.id ){
+    <lib-product-card [product]="item" />
+    }
+  </div>
+
+  }@else {
+  <p class="text-green-600">No Mangas Loaded! Please Refresh To Retry</p>
+  } }}
+  <div class="flex justify-center py-4" *ngIf="moreMangaLoading()">
+    <p-progress-spinner fill="transparent" />
+  </div>
 </div>

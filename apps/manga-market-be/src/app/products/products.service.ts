@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { PrismaService } from '../prisma/prisma.service';
-import { Product as PrismaProduct, Genre as PrismaGenre, Prisma } from '@prisma/client';
+import {
+  Product as PrismaProduct,
+  Genre as PrismaGenre,
+  Prisma,
+} from '@prisma/client';
 
 type ProductWithGenres = PrismaProduct & { genres: PrismaGenre[] };
 
@@ -20,13 +24,14 @@ export class ProductsService {
       isNew?: boolean;
       trending?: boolean;
       minRating?: number;
+      genreId?: string;
     },
     pagination: {
       page: number;
       limit: number;
     }
   ) {
-    const { featured, isNew, trending, minRating } = filters;
+    const { featured, isNew, trending, minRating, genreId } = filters;
     const { page, limit } = pagination;
 
     const where = {
@@ -34,6 +39,13 @@ export class ProductsService {
       ...(isNew !== undefined && { isNew }),
       ...(trending !== undefined && { trending }),
       ...(minRating !== undefined && { rating: { gte: minRating } }),
+      ...(genreId && {
+        genres: {
+          some: {
+            id: genreId,
+          },
+        },
+      }),
     };
 
     const skip = (page - 1) * limit;
@@ -71,55 +83,55 @@ export class ProductsService {
     });
   }
 
-async searchProducts(
-  term: string,
-  page: number,
-  limit: number
-): Promise<{
-  results: ProductWithGenres[];
-  totalCount: number;
-  totalPages: number;
-  currentPage: number;
-}> {
-  const skip = (page - 1) * limit;
-  const lowercaseTerm = term.toLowerCase();
-const where: Prisma.ProductWhereInput = {
-  OR: [
-    {
-      title: {
-        contains: lowercaseTerm,
-        mode: Prisma.QueryMode.insensitive, 
-      },
-    },
-    {
-      author: {
-        contains: lowercaseTerm,
-        mode: Prisma.QueryMode.insensitive,
-      },
-    },
-  ],
-};
+  async searchProducts(
+    term: string,
+    page: number,
+    limit: number
+  ): Promise<{
+    results: ProductWithGenres[];
+    totalCount: number;
+    totalPages: number;
+    currentPage: number;
+  }> {
+    const skip = (page - 1) * limit;
+    const lowercaseTerm = term.toLowerCase();
+    const where: Prisma.ProductWhereInput = {
+      OR: [
+        {
+          title: {
+            contains: lowercaseTerm,
+            mode: Prisma.QueryMode.insensitive,
+          },
+        },
+        {
+          author: {
+            contains: lowercaseTerm,
+            mode: Prisma.QueryMode.insensitive,
+          },
+        },
+      ],
+    };
 
-  const [results, totalCount] = await Promise.all([
-    this.prisma.product.findMany({
-      where,
-      include: { genres: true },
-      skip,
-      take: limit,
-      orderBy: { createdAt: 'desc' },
-    }),
-    this.prisma.product.count({ where }),
-  ]);
+    const [results, totalCount] = await Promise.all([
+      this.prisma.product.findMany({
+        where,
+        include: { genres: true },
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.product.count({ where }),
+    ]);
 
-  const totalPages = Math.ceil(totalCount / limit);
+    const totalPages = Math.ceil(totalCount / limit);
 
-  return {
-    results,
-    totalCount,
-    totalPages,
-    currentPage: page,
-  };
-}
+    return {
+      results,
+      totalCount,
+      totalPages,
+      currentPage: page,
+    };
+  }
 
   update(id: number, updateProductInput: UpdateProductInput) {
     return `This action updates a #${id} product`;

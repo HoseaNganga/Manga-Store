@@ -41,7 +41,7 @@ export class NavbarComponent {
     {
       label: 'Manga',
       icon: 'pi pi-th-large',
-      routerLink: '/manga',
+      routerLink: '/mangas',
     },
   ];
   showSearch: WritableSignal<boolean> = showSearch;

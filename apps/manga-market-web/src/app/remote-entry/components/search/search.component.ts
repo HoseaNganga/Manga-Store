@@ -8,14 +8,19 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../global/navbar/navbar.component';
-import { query, SearchStore, showSearch } from '../../../stores';
+import {
+  query,
+  SearchStore,
+  showSearch,
+  isFirstPageLoading,
+} from '../../../stores';
 import {
   SectionLoaderComponent,
   ProductCardComponent,
 } from '@mangamarket/manga-market-sharedLib';
 import { ActivatedRoute } from '@angular/router';
 import { ProgressSpinner } from 'primeng/progressspinner';
-import { isFirstPageLoading } from '../../../stores';
+
 @Component({
   selector: 'app-search',
   imports: [
@@ -41,7 +46,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   readonly totalPages = computed(() => this.pagination().totalPages);
   hasSearched = signal(false);
   readonly firstPageLoading = isFirstPageLoading;
-
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {

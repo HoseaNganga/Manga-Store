@@ -25,6 +25,20 @@ export const remoteRoutes: Routes = [
             (m) => m.SearchComponent
           ),
       },
+      {
+        path: 'mangas',
+        loadComponent: () =>
+          import('./components/products/products.component').then(
+            (m) => m.ProductsComponent
+          ),
+      },
+      {
+        path: 'manga/category/:category',
+        loadComponent: () =>
+          import('./components/category/category.component').then(
+            (m) => m.CategoryComponent
+          ),
+      },
     ],
   },
 ];

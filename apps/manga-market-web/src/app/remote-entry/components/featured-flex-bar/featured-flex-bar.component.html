@@ -1,5 +1,9 @@
 <div class="grid gap-4">
-  <lib-section-header [icon]="'pi pi-bookmark'" [title]="'New Arrivals'">
+  <lib-section-header
+    [icon]="'pi pi-bookmark'"
+    [title]="'New Arrivals'"
+    [category]="'newArrivals'"
+  >
   </lib-section-header>
   @if(loading()){
   <div class="card flex justify-center">

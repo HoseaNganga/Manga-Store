@@ -1,5 +1,9 @@
 <div>
-  <lib-section-header [icon]="'pi pi-star'" [title]="'Top Rated'">
+  <lib-section-header
+    [icon]="'pi pi-star'"
+    [title]="'Top Rated'"
+    [category]="'topRated'"
+  >
   </lib-section-header>
   @if(topRatedProductsLoading()){
   <div class="card flex justify-center">
@@ -26,7 +30,11 @@
   }
 
   <br />
-  <lib-section-header [icon]="'pi pi-chart-line'" [title]="'Trending Now'">
+  <lib-section-header
+    [icon]="'pi pi-chart-line'"
+    [title]="'Trending Now'"
+    [category]="'trending'"
+  >
   </lib-section-header>
   @if(trendingProductsLoading()){
   <div class="card flex justify-center">
@@ -53,7 +61,11 @@
   }
 
   <br />
-  <lib-section-header [icon]="'pi pi-star-fill'" [title]="'Featured'">
+  <lib-section-header
+    [icon]="'pi pi-star-fill'"
+    [title]="'Featured'"
+    [category]="'featured'"
+  >
   </lib-section-header>
   @if(featuredProductsLoading()){
   <div class="card flex justify-center">

@@ -26,10 +26,11 @@ export class ProductsResolver {
     @Args('trending', { type: () => Boolean, nullable: true })
     trending?: boolean,
     @Args('minRating', { type: () => Number, nullable: true })
-    minRating?: number
+    minRating?: number,
+      @Args('genreId', { type: () => String, nullable: true }) genreId?: string
   ) {
     return this.productsService.findAll(
-      { featured, isNew, trending, minRating },
+      { featured, isNew, trending, minRating,genreId },
       { page, limit }
     );
   }

@@ -1,7 +1,6 @@
 import { Genre, heroUrl, Product } from '@prisma/client';
 import { gql } from 'apollo-angular';
 
-
 export interface PaginatedProductData {
   results: Product[];
   currentPage: number;
@@ -49,6 +48,7 @@ export const GET_PRODUCTS = gql`
     $trending: Boolean
     $isNew: Boolean
     $minRating: Float
+    $genreId: String
   ) {
     products(
       page: $page
@@ -57,6 +57,7 @@ export const GET_PRODUCTS = gql`
       trending: $trending
       isNew: $isNew
       minRating: $minRating
+      genreId: $genreId
     ) {
       results {
         id
