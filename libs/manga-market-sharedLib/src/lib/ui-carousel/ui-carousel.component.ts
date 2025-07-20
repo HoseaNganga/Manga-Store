@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
@@ -27,6 +27,7 @@ export class UiCarouselComponent {
   @Input() responsiveOptions: any[] | null = null;
   @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
   @Input() verticalHeight = '330px';
+  @Output() categorySelected=new EventEmitter<any>();
 
   defaultResponsive: any[] = [
     {
@@ -45,4 +46,8 @@ export class UiCarouselComponent {
       numScroll: 1,
     },
   ];
+
+   handleCategoryClick(category: any) {
+    this.categorySelected.emit(category);
+  }
 }

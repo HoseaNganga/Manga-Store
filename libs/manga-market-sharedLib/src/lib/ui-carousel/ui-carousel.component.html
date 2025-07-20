@@ -34,6 +34,10 @@
     <div
       *ngIf="templateType === 'category'"
       class="category-item w-[120px] h-[120px] bg-gray-900 text-[#a3ffd4] flex items-center justify-center rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:scale-1 hover:shadow-xl hover:border hover:border-[#a3ffd4] sm:mx-2 mx-1"
+      (click)="handleCategoryClick(item)"
+      (keyup.enter)="handleCategoryClick(item)"
+      tabindex="0"
+      role="button"
     >
       <div
         class="md:text-base text-[12px] font-semibold text-center sm:px-4 p-0"
