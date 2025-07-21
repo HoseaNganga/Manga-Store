@@ -15,6 +15,7 @@ import {
   ProductCardComponent,
   SectionLoaderComponent,
 } from '@mangamarket/manga-market-sharedLib';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-products',
   imports: [
@@ -32,6 +33,7 @@ import {
 export class ProductsComponent implements OnInit {
   private readonly genreStore = inject(GenreStore);
   private readonly productStore = inject(ProductStore);
+  private readonly route = inject(ActivatedRoute);
   formGroup!: FormGroup;
   genres!: Genre[];
   selectedGenreId = signal<string | undefined>(undefined);
@@ -48,7 +50,25 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.genreStore.loadGenres();
-    this.productStore.loadAllProducts();
+
+    const genreIdFromUrl = this.route.snapshot.queryParamMap.get('genreId');
+    if (genreIdFromUrl) {
+      setTimeout(() => {
+        const matched = this.genreStore
+          .genres()
+          .find((g) => g.id === genreIdFromUrl);
+        if (matched) {
+          this.formGroup.get('selectedGenre')?.setValue(matched);
+          this.selectedGenreId.set(matched.id);
+          this.productStore.loadAllProducts(matched.id);
+        } else {
+          this.productStore.loadAllProducts();
+        }
+      }, 200);
+    } else {
+      this.productStore.loadAllProducts();
+    }
+
     this.formGroup = new FormGroup({
       selectedGenre: new FormControl<Genre | null>(null),
     });
